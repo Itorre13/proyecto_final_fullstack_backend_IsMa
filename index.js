@@ -35,8 +35,15 @@ servidor.post("/participantes/nuevo", async (peticion,respuesta) => {
 });
 
 servidor.put("/participantes/actualizar/participante/:id([0-9]+)", async (peticion,respuesta,siguiente) => {
+
+    let {id} = peticion.params;
+    let {nombre} = peticion.body;
+
+    if(nombre.trim() == ""){
+        return siguiente({ error : "no tiene la propiedad nombre"})
+    }
     try{
-        let cantidad = await actualizarParticipante(peticion.params.id);
+        let cantidad = await actualizarParticipante(id,nombre);
 
         respuesta.json( { resultado : cantidad ? "ok" : "ko" }); // respuesta si el resultado es cantidad "ok" y si no "ko"
 

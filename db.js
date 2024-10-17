@@ -69,20 +69,21 @@ export function borrarParticipante(id){
     });
 }
 /*
-borrarParticipante(10)
+borrarParticipante(55)
 .then( x => console.log(x))
 .catch( x => console.log(x))
 */
 
-export function actualizarParticipante({nombre,apellidos,email,telefono,perro,raza,carrera}){
+
+export function actualizarParticipante(id,nombre){
     return new Promise(async (ok,ko) => { // retorna una promesa
         const conexion = conectar(); // invoca la función conectar para traer la conexión
         try{
-            let [{id}] = await conexion`UPDATE participantes SET (${nombre},${apellidos},${email},${telefono},${perro},${raza},${carrera}) WHERE (nombre,apellidos,email,telefono,perro,raza,carrera) RETURNING id`;
+            let {count} = await conexion`UPDATE participantes SET nombre = (${nombre}) WHERE id = ${id}`;
 
             conexion.end();
 
-            ok(id);
+            ok(count); // será un 0 o un 1
 
         }catch(error){
             ko({ error : "error en base de datos" });
