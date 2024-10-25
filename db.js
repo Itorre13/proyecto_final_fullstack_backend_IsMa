@@ -26,11 +26,6 @@ export function leerParticipantes(){
         }
     });
 }
-/*
-leerParticipantes()
-.then( x => console.log(x)) // x será las tareas
-.catch( x => console.log(x)) // x será el mensaje de error
-*/
 
 export function nuevoParticipante({nombre,apellidos,email,telefono,perro,raza,carrera}){
     return new Promise(async (ok,ko) => {
@@ -47,11 +42,6 @@ export function nuevoParticipante({nombre,apellidos,email,telefono,perro,raza,ca
         }
     });
 }
-/*
-nuevoParticipante("Luisa","Martín Fraile","mfrailes@gmail.com",789654323,"Perdigón","Galgo","carrera 7km")
-.then( x => console.log(x))
-.catch( x => console.log(x))
-*/
 
 export function borrarParticipante(id){
     return new Promise(async (ok,ko) => { // retorna una promesa
@@ -68,11 +58,6 @@ export function borrarParticipante(id){
         }
     });
 }
-/*
-borrarParticipante(55)
-.then( x => console.log(x))
-.catch( x => console.log(x))
-*/
 
 
 export function actualizarParticipante(id,nombre,apellidos,email,telefono,perro,raza,carrera){
@@ -98,11 +83,6 @@ export function actualizarParticipante(id,nombre,apellidos,email,telefono,perro,
         }
     });
 }
-/*
-actualizarParticipante(86,"Alfredo","Gomez Alvarez","alfredito@gmail.com","00000000","perro","Caniche","corta")
-.then( x => console.log(x))
-.catch( x => console.log(x))
-*/
 
 
 
