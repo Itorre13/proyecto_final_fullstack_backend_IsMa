@@ -75,20 +75,34 @@ borrarParticipante(55)
 */
 
 
-export function actualizarParticipante(id,nombre){
+export function actualizarParticipante(id,nombre,apellidos,email,telefono,perro,raza,carrera){
     return new Promise(async (ok,ko) => { // retorna una promesa
         const conexion = conectar(); // invoca la función conectar para traer la conexión
         try{
-            let {count} = await conexion`UPDATE participantes SET nombre = (${nombre}) WHERE id = ${id}`;
+            let {count} = await conexion`UPDATE participantes SET 
+                    nombre = ${nombre},
+                    apellidos = ${apellidos},
+                    email = ${email},
+                    telefono = ${telefono},
+                    perro= ${perro},
+                    raza= ${raza},
+                    carrera = ${carrera}
+                WHERE id = ${id}`;
 
             conexion.end();
 
             ok(count); // será un 0 o un 1
 
         }catch(error){
-            ko({ error : "error en base de datos" });
+           ko({ error : "error en base de datos" });
         }
     });
 }
+/*
+actualizarParticipante(86,"Alfredo","Gomez Alvarez","alfredito@gmail.com","00000000","perro","Caniche","corta")
+.then( x => console.log(x))
+.catch( x => console.log(x))
+*/
+
 
 

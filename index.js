@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { leerParticipantes,nuevoParticipante,borrarParticipante } from './db.js';
+import { leerParticipantes,nuevoParticipante,borrarParticipante,actualizarParticipante } from './db.js';
 
 dotenv.config();
 
@@ -35,15 +35,15 @@ servidor.post("/participantes/nuevo", async (peticion,respuesta) => {
 });
 
 servidor.put("/participantes/actualizar/participante/:id([0-9]+)", async (peticion,respuesta,siguiente) => {
-
+    
     let {id} = peticion.params;
-    let {nombre} = peticion.body;
+    let { nombre,apellidos,email,telefono,perro,raza,carrera } = peticion.body;
 
     if(nombre.trim() == ""){
         return siguiente({ error : "no tiene la propiedad nombre"})
     }
     try{
-        let cantidad = await actualizarParticipante(id,nombre);
+        let cantidad = await actualizarParticipante(id,nombre,apellidos,email,telefono,perro,raza,carrera);
 
         respuesta.json( { resultado : cantidad ? "ok" : "ko" }); // respuesta si el resultado es cantidad "ok" y si no "ko"
 
