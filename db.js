@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import postgres from 'postgres';
-dotenv.config(); // Carga las variables de entorno en el archivo .env
+dotenv.config(); // Carga las variables de entorno del fichero .env
 
-function conectar(){ // Crea la conexión con las variables de entorno del fichero .env
+function conectar(){ // Función para crear la conexión con las variables de entorno del fichero .env
     return postgres({ 
             host : process.env.DB_HOST,
             database : process.env.DB_NAME,
@@ -11,7 +11,7 @@ function conectar(){ // Crea la conexión con las variables de entorno del fiche
     });
 }
 
-export function leerParticipantes(){ // Crea la función leerParticipante que primero conecta, después lee los Participantes de la base de datos y si ha salido bien los envía y si no muestra un mesanje de error
+export function leerParticipantes(){ // Función leerParticipante que primero conecta, después lee los Participantes de la base de datos y si ha salido bien los envía y si no muestra un mesanje de error
     return new Promise(async (ok,ko) => {
         const conexion = conectar();
         try{
@@ -27,7 +27,7 @@ export function leerParticipantes(){ // Crea la función leerParticipante que pr
     });
 }
 
-export function nuevoParticipante({nombre,apellidos,email,telefono,perro,raza,carrera}){ // Crea la función nuevoParticipante que primero conecta, después crea el nuevo Participantes con los datos introducidos en la base de datos y si ha salido bien envía el id de ese nuevo Participante y si no muestra un mesanje de error
+export function nuevoParticipante({nombre,apellidos,email,telefono,perro,raza,carrera}){ // Función nuevoParticipante que primero conecta, después crea el nuevo Participantes con los datos introducidos en la base de datos y si ha salido bien envía el id de ese nuevo Participante y si no muestra un mensaje de error
     return new Promise(async (ok,ko) => {
         const conexion = conectar();
         try{
@@ -43,7 +43,7 @@ export function nuevoParticipante({nombre,apellidos,email,telefono,perro,raza,ca
     });
 }
 
-export function borrarParticipante(id){ // Crea la función borrarParticipante que primero conecta, después borra el Participante con la id introducida de la base de datos y si ha salido bien envía un 1 y y si no, será un 0 y muestra un mesanje de error
+export function borrarParticipante(id){ // Función borrarParticipante que primero conecta, después borra el Participante de la base de datos con la id introducida y si ha salido bien envía un 1 y si no, será un 0 y muestra un mensaje de error
     return new Promise(async (ok,ko) => {
         const conexion = conectar();
         try{
@@ -60,9 +60,9 @@ export function borrarParticipante(id){ // Crea la función borrarParticipante q
 }
 
 
-export function actualizarParticipante(id,nombre,apellidos,email,telefono,perro,raza,carrera){ // Crea la función actualizarParticipante que primero conecta, después actualiza el Participante con los datos introducidos en la base de datos y si ha salido bien envía un 1 y si no, será un 0 y muestra un mesanje de error
-    return new Promise(async (ok,ko) => { // retorna una promesa
-        const conexion = conectar(); // invoca la función conectar para traer la conexión
+export function actualizarParticipante(id,nombre,apellidos,email,telefono,perro,raza,carrera){ // Función actualizarParticipante que primero conecta, después actualiza el Participante en la base de datos con los datos introducidos y si ha salido bien envía un 1 y si no, será un 0 y muestra un mensaje de error
+    return new Promise(async (ok,ko) => {
+        const conexion = conectar();
         try{
             let {count} = await conexion`UPDATE participantes SET 
                     nombre = ${nombre},

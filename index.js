@@ -4,14 +4,14 @@ import cors from 'cors';
 import { leerParticipantes,nuevoParticipante,borrarParticipante,actualizarParticipante } from './db.js';
 
 
-dotenv.config(); // Carga las variables de entorno en el archivo .env
+dotenv.config(); // Carga las variables de entorno del fichero .env
 
 const servidor = express() // Crea servidor con express
 
 /* MIDDLEWARES */
 
 servidor.use(cors()); // Permite hacer peticiones desde cualquier dominio
-servidor.use(express.json()); // Intercepta cualquier información que le llega con urlencoded en el content-type : application/urlencoded y lo convierte a objeto y lo almacena en petición.body
+servidor.use(express.json()); // Intercepta cualquier información que le llega con urlencoded content-type : application/json y lo convierte a objeto y lo almacena en petición.body
 
 servidor.get("/participantes", async (peticion,respuesta) => { // Si llega una petición con el metodo GET este es el callback que se encarga de responder
     try{
@@ -42,7 +42,7 @@ servidor.put("/participantes/actualizar/participante/:id([0-9]+)", async (petici
     let {id} = peticion.params; // Extrae el id de los parámetros de la petición
     let { nombre,apellidos,email,telefono,perro,raza,carrera } = peticion.body; // Extrae nombre,apellidos,email,telefono,perro,raza y carrera del cuerpo de la petición
 
-    if(nombre.trim() == "" && apellidos.trim() == "" && email.trim() == "" && telefono.trim() == "" && perro.trim() == "" && raza.trim() == "" && carrera.trim() == ""){ // Si los datos introducidos no tienen espacios y son distinto de vacío
+    if(nombre.trim() == "" && apellidos.trim() == "" && email.trim() == "" && telefono.trim() == "" && perro.trim() == "" && raza.trim() == "" && carrera.trim() == ""){ // Si los datos introducidos sin espacios y son iguales de vacío haremos lo siguiente
         return siguiente({ error : "error en los datos actualizados"}) // Retorna siguiente con el error
     }
     try{
